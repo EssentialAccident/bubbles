@@ -12,7 +12,7 @@ function setup() {
     pushBubblesBtn.mousePressed(applyForce);
     addBubbleBtn = createButton('Add bubble!!!');
     addBubbleBtn.position(100, 10);
-    addBubbleBtn.mousePressed(addBubble)
+    addBubbleBtn.mousePressed(addBubble);
 }
 
 function draw() {
@@ -21,7 +21,9 @@ function draw() {
     for (let i = 0; i < bubbles.length; i++) {
         // Detecting collisions
         for (let j = i + 1; j < bubbles.length; j++) {
-            bubbles[i].collisionDetection(bubbles[j])
+            if (bubbles[i].collisionDetection(bubbles[j])) {
+                bubbles[i].collisionResolve(bubbles[j]);
+            }
         }
         bubbles[i].update();
         bubbles[i].show();
@@ -35,11 +37,21 @@ function applyForce() {
 }
 
 function addBubble() {
-    bubbles.push(new Bubble(
-        createVector(random(width), random(height)),
-        random(10, 50),
-        color(int(random(255)), int(random(255)), int(random(255))
-        )));
+    let newBubble = null;
+    do {
+        newBubble = new Bubble(
+            createVector(random(width), random(height)),
+            random(10, 50),
+            color(int(random(255)), int(random(255)), int(random(255)))
+        );
+        for (let i = 0; i < bubbles.length; i++) {
+            if (newBubble.collisionDetection(bubbles[i])) {
+                newBubble = null;
+                break;
+            }
+        }
+    } while (!newBubble);
+    bubbles.push(newBubble);
 }
 
 

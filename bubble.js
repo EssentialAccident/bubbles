@@ -1,6 +1,6 @@
 class Bubble {
 
-    MAX_SPEED = 5;
+    MAX_SPEED = 10;
 
     constructor(position, radius = 30, col = color(255)) {
         let setUpVector = createVector(0);
@@ -54,17 +54,16 @@ class Bubble {
     }
 
     collisionDetection(other) {
-        if (this.pos.dist(other.pos) <= this.radius + other.radius) {
-            // let temp = this.vel;
-            // this.vel = other.vel;
-            // other.vel = temp;
-            let thisNewVelX = (this.vel.x * (this.radius - other.radius) + (2 * other.radius * other.vel.x)) / (this.radius + other.radius);
-            let thisNewVelY = (this.vel.y * (this.radius - other.radius) + (2 * other.radius * other.vel.y)) / (this.radius + other.radius);
-            let otherNewVelX = (other.vel.x * (other.radius - this.radius) + (2 * this.radius * this.vel.x)) / (other.radius + this.radius);
-            let otherNewVelY = (other.vel.y * (other.radius - this.radius) + (2 * this.radius * this.vel.y)) / (other.radius + this.radius);
-            this.vel = createVector(thisNewVelX, thisNewVelY);
-            other.vel = createVector(otherNewVelX, otherNewVelY);
-        }
+        return this.pos.dist(other.pos) <= this.radius + other.radius
+    }
+
+    collisionResolve(other) {
+        let thisNewVelX = (this.vel.x * (this.radius - other.radius) + (2 * other.radius * other.vel.x)) / (this.radius + other.radius);
+        let thisNewVelY = (this.vel.y * (this.radius - other.radius) + (2 * other.radius * other.vel.y)) / (this.radius + other.radius);
+        let otherNewVelX = (other.vel.x * (other.radius - this.radius) + (2 * this.radius * this.vel.x)) / (other.radius + this.radius);
+        let otherNewVelY = (other.vel.y * (other.radius - this.radius) + (2 * this.radius * this.vel.y)) / (other.radius + this.radius);
+        this.vel = createVector(thisNewVelX, thisNewVelY);
+        other.vel = createVector(otherNewVelX, otherNewVelY);
     }
 
 }
