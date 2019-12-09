@@ -64,6 +64,9 @@ class Bubble {
         let otherNewVelY = (other.vel.y * (other.radius - this.radius) + (2 * this.radius * this.vel.y)) / (other.radius + this.radius);
         this.vel = createVector(thisNewVelX, thisNewVelY);
         other.vel = createVector(otherNewVelX, otherNewVelY);
+        let temp = this.color
+        this.color = lerpColor(this.color, other.color, 0.1);
+        other.color = lerpColor(other.color, temp, 0.1);
     }
 
 }

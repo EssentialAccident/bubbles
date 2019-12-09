@@ -2,6 +2,7 @@
 let bubbles;
 let pushBubblesBtn;
 let addBubbleBtn;
+let resetBtn;
 
 function setup() {
     // Setup for the sketch
@@ -13,6 +14,9 @@ function setup() {
     addBubbleBtn = createButton('Add bubble!!!');
     addBubbleBtn.position(100, 10);
     addBubbleBtn.mousePressed(addBubble);
+    resetBtn = createButton('Reset');
+    resetBtn.position(200, 10);
+    resetBtn.mousePressed(reset);
 }
 
 function draw() {
@@ -54,4 +58,7 @@ function addBubble() {
     bubbles.push(newBubble);
 }
 
+function reset() {
+    bubbles = []
+}
 
