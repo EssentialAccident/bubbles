@@ -18,11 +18,14 @@ function setup() {
 function draw() {
     // Draws the sketch 60 times a second
     background(0);
-    for (let bubble of bubbles) {
-        bubble.update();
-        bubble.show();
+    for (let i = 0; i < bubbles.length; i++) {
+        // Detecting collisions
+        for (let j = i + 1; j < bubbles.length; j++) {
+            bubbles[i].collisionDetection(bubbles[j])
+        }
+        bubbles[i].update();
+        bubbles[i].show();
     }
-
 }
 
 function applyForce() {
@@ -38,3 +41,5 @@ function addBubble() {
         color(int(random(255)), int(random(255)), int(random(255))
         )));
 }
+
+
