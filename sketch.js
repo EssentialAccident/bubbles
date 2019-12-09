@@ -1,14 +1,18 @@
 // Global variables
 let bubble;
-let button;
+let push;
 
 function setup() {
     // Setup for the sketch
     createCanvas(600, 600);
-    bubble = new Bubble(createVector(random(width), random(height)));
-    button = createButton('click me');
-    button.position(19, 19);
-    button.mousePressed(applyForce);
+    bubble = new Bubble(
+        createVector(random(width), random(height)),
+        random(10, 50),
+        color(int(random(255)), int(random(255)), int(random(255))
+        ));
+    push = createButton('Bounce!!!');
+    push.position(20, 610);
+    push.mousePressed(applyForce);
 }
 
 function draw() {

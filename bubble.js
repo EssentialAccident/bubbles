@@ -1,13 +1,15 @@
 class Bubble {
 
-    RADIUS = 30;
-    MAX_SPEED = 5;
+    MAX_SPEED = 7;
 
-    constructor(position) {
+    constructor(position, radius = 30, col = color(255)) {
         let setUpVector = createVector(0, 0);
         this.pos = position;
         this.vel = setUpVector;
         this.acc = setUpVector;
+        this.radius = radius;
+        this.color = col;
+        this.checkBorders();
     }
 
     update() {
@@ -18,24 +20,37 @@ class Bubble {
         }
         this.pos.add(this.vel);
         this.acc = createVector(0);
-       
-        // Bouncing against borders of the screen
-        if (this.pos.x < this.RADIUS || this.pos.x > width - this.RADIUS) {
-            this.vel.x = -(this.vel.x);
-        }
-        if (this.pos.y < this.RADIUS || this.pos.y > height - this.RADIUS) {
-            this.vel.y = -(this.vel.y);
-        }
 
+        // Bouncing against borders of the screen
+        this.checkBorders();
     }
 
     show() {
         noFill();
-        stroke(255);
-        circle(this.pos.x, this.pos.y, this.RADIUS * 2);
+        strokeWeight(3);
+        stroke(this.color);
+        circle(this.pos.x, this.pos.y, this.radius * 2);
     }
 
     applyForce(force) {
         this.acc.add(force)
     }
+
+    checkBorders() {
+        if (this.pos.x < this.radius) {
+            this.pos.x = this.radius;
+            this.vel.x = -(this.vel.x);
+        } else if (this.pos.x > width - this.radius) {
+            this.pos.x = width - this.radius;
+            this.vel.x = -(this.vel.x);
+        }
+        if (this.pos.y < this.radius) {
+            this.pos.y = this.radius;
+            this.vel.y = -(this.vel.y);
+        } else if (this.pos.y > height - this.radius) {
+            this.pos.y = height - this.radius;
+            this.vel.y = -(this.vel.y);
+        }
+    }
+
 }
